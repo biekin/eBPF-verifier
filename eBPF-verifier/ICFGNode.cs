@@ -1,9 +1,8 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public interface IExpression
+	public interface ICFGNode
 	{
-		int evaluate();
 	}
 }
 

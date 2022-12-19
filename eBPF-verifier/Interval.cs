@@ -21,6 +21,11 @@ namespace eBPF_verifier
         {
             return new Interval(From - another.From, To - another.To);
         }
+
+        public override string ToString()
+        {
+			return $"Interval: [{From}, {To}]";
+        }
     }
 }
 
