@@ -3,7 +3,7 @@ namespace eBPF_verifier
 {
 	public interface ICFGEdge
 	{
-		ICFGNode from { get; }
+		ICFGNode From { get; }
 		ICFGNode To { get; }
 
 		AbstractExpression GetAbstractExpresison();
