@@ -7,13 +7,15 @@ namespace eBPF_verifier
 
 		private IExpression Expression;
 
-        public ICFGNode From => throw new NotImplementedException();
+        public ICFGNode From { get; private set; }
 
-        public ICFGNode To => throw new NotImplementedException();
+        public ICFGNode To { get; private set; }
 
-        public AssignmentEdge(IProgramVariable programVariable, IExpression expression)
+        public AssignmentEdge(ICFGNode from, ICFGNode to, IProgramVariable programVariable, IExpression expression)
 		{
-			ProgramVariable = programVariable;
+            From = from;
+            To = to;
+            ProgramVariable = programVariable;
 			Expression = expression;
 		}
 

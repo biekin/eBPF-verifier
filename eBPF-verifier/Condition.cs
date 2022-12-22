@@ -5,13 +5,13 @@ namespace eBPF_verifier
 	{
 		private IProgramVariable ProgramVariable;
 		private string Ineqaulity;
-		private int Value;
+		private IArgument Arg;
 
-		public Condition(IProgramVariable programVariable, string inequality, int value)
+		public Condition(IProgramVariable programVariable, string inequality, IArgument arg)
 		{
 			ProgramVariable = programVariable;
 			Ineqaulity = inequality;
-			Value = value;
+			Arg = arg;
 		}
 	}
 }

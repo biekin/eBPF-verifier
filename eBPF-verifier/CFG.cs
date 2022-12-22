@@ -12,6 +12,16 @@ namespace eBPF_verifier
 		{
 			return true;
 		}
+
+		public void AddNode(ICFGNode node)
+		{
+			Nodes.Append(node);
+		}
+
+		public void AddEdge(ICFGEdge edge)
+		{
+			Edges.Append(edge);
+		}
 	}
 }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public interface IProgramVariable
+	public interface IProgramVariable : IArgument
 	{
-		string Name { get; set; }
+		string Name { get; }
 	}
 }
 
