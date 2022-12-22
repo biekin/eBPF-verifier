@@ -5,7 +5,8 @@ namespace eBPF_verifier
 	{
 		private IProgramVariable ProgramVariable;
 
-		private IExpression Expression;
+        // TODO support assignment of single variable / literal
+        private IExpression Expression;
 
         public ICFGNode From { get; private set; }
 
@@ -22,6 +23,11 @@ namespace eBPF_verifier
         public AbstractExpression GetAbstractExpresison()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return $"Edge: {From} --> {To}; {ProgramVariable} = {Expression}";
         }
     }
 }

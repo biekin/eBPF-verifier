@@ -14,6 +14,11 @@ namespace eBPF_verifier
 		{
 			return new Interval(Value, Value);
 		}
-	}
+
+        public override string ToString()
+        {
+			return Value.ToString();
+        }
+    }
 }
 

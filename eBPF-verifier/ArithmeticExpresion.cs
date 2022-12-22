@@ -15,6 +15,11 @@ namespace eBPF_verifier
             Arg2 = arg2;
             Operation = operation;
 		}
+
+        public override string ToString()
+        {
+            return $"{Arg1} {Operation} {Arg2}";
+        }
     }
 }
 

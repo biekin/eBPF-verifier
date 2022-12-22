@@ -5,7 +5,7 @@ namespace eBPF_verifier
 	{
 		public string Name { get; private set; }
 
-		private Interval interval;
+		private Interval? interval;
 
 		public Register(string name)
 		{
@@ -16,6 +16,11 @@ namespace eBPF_verifier
 		{
 			return interval;
 		}
-	}
+
+        public override string ToString()
+        {
+			return Name;
+        }
+    }
 }
 
