@@ -4,8 +4,8 @@ namespace eBPF_verifier
 {
 	public class CFG
 	{
-		private List<ICFGNode> Nodes = new List<ICFGNode>();
-		private List<ICFGEdge> Edges = new List<ICFGEdge>();
+		public List<ICFGNode> Nodes = new List<ICFGNode>();
+		public List<ICFGEdge> Edges = new List<ICFGEdge>();
 
 		public CFG() { }
 
