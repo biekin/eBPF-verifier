@@ -3,7 +3,7 @@ namespace eBPF_verifier
 {
 	public class AbstractState
 	{
-		private Dictionary<IProgramVariable, Interval> VariablesIntervals;
+		private List<Interval> VariablesIntervals;
 
 		public AbstractState()
 		{

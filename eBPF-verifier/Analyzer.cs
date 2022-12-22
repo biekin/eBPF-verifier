@@ -12,6 +12,11 @@ namespace eBPF_verifier
 			Cfg = cfg;
 			Iterator = iterator;
 		}
+
+		private void GenerateEquations()
+		{
+
+		}
 	}
 }
 
