@@ -13,6 +13,11 @@ namespace eBPF_verifier
 			Ineqaulity = inequality;
 			Arg = arg;
 		}
-	}
+
+        public override string ToString()
+        {
+			return $"{ProgramVariable} {Ineqaulity} {Arg}";
+        }
+    }
 }
 

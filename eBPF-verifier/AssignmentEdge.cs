@@ -27,7 +27,7 @@ namespace eBPF_verifier
 
         public override string ToString()
         {
-            return $"Edge: {From} --> {To}; {ProgramVariable} = {Expression}";
+            return $"Edge: {From} --> {To}; {ProgramVariable} := {Expression}";
         }
     }
 }

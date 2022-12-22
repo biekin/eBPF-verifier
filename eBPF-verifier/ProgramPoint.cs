@@ -9,6 +9,11 @@ namespace eBPF_verifier
 		{
 			Label = label;
 		}
-	}
+
+        public override string ToString()
+        {
+			return Label;
+        }
+    }
 }
 

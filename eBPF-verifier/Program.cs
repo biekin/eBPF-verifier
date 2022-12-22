@@ -6,7 +6,7 @@
 //        x := x-1
 //    }
 
-CFG ex1cfg = new CFG();
+CFG ex1 = new CFG();
 
 Register x = new Register("x");
 
@@ -19,3 +19,14 @@ var e1 = new AssignmentEdge(p0, p1, x, new ArithmeticExpresion(new Literal(100),
 var e2 = new BranchEdge(p1, p2, new Condition(x, ">", new Literal(0)));
 var e3 = new AssignmentEdge(p2, p1, x, new ArithmeticExpresion(x, new Literal(1), "-"));
 var e4 = new BranchEdge(p1, p3, new Condition(x, "<=", new Literal(0)));
+
+ex1.AddNode(p0);
+ex1.AddNode(p1);
+ex1.AddNode(p2);
+ex1.AddNode(p3);
+ex1.AddEdge(e1);
+ex1.AddEdge(e2);
+ex1.AddEdge(e3);
+ex1.AddEdge(e4);
+
+Console.WriteLine(ex1);

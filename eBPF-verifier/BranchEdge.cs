@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq.Expressions;
+
 namespace eBPF_verifier
 {
 	public class BranchEdge : ICFGEdge
@@ -19,6 +21,11 @@ namespace eBPF_verifier
         public AbstractExpression GetAbstractExpresison()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return $"Edge: {From} --> {To}; {Condition}";
         }
     }
 }
