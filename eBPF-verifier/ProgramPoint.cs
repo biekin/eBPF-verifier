@@ -27,11 +27,20 @@ namespace eBPF_verifier
 			}
 
 			var edgesToThis = Cfg.Edges.Where(e => e.To == this).ToList();
-			//	var abstractExpression = new AbstractExpression(); // TODO
-			//	var abstractState = new AbstractState(); // TODO
-			//	return new Equation(this, abstractExpression, abstractState);
+			AbstractExpression abstractExpression = null;
 
-			throw new NotImplementedException();
+			if (edgesToThis.Count == 1)
+			{
+				abstractExpression = edgesToThis[0].GetAbstractExpresison();
+			}
+
+			if (edgesToThis.Count > 1)
+			{
+				abstractExpression = GetAbstracExpressionFromListOfEdges(edgesToThis);
+			}
+
+			var abstractState = new AbstractState(); // TODO
+			return new Equation(this, abstractExpression, abstractState);
 		}
 
         public override string ToString()
