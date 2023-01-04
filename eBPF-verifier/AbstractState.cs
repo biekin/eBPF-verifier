@@ -3,7 +3,7 @@ namespace eBPF_verifier
 {
 	public class AbstractState
 	{
-		private List<Interval> VariablesIntervals = new List<Interval>();
+		private List<Register> VariablesIntervals = new List<Register>();
 
 		public AbstractState() { }
 	}

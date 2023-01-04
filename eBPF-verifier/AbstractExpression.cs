@@ -1,10 +1,15 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class AbstractExpression
+	public class AbstractExpression : IAbstractExpressionArgument
 	{
-		public AbstractExpression()
+		private IAbstractExpressionArgument Arg1;
+		private IAbstractExpressionArgument Arg2;
+
+		public AbstractExpression(IAbstractExpressionArgument arg1, IAbstractExpressionArgument arg2)
 		{
+			Arg1 = arg1;
+			Arg2 = arg2;
 		}
 	}
 }

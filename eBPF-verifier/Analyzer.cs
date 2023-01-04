@@ -25,7 +25,8 @@ namespace eBPF_verifier
 
 		private Equation GetEquation(ICFGNode n)
 		{
-			throw new NotImplementedException();
+			var nodeEquation = n.GetEquation();
+			return nodeEquation;
 		}
 	}
 }

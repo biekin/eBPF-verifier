@@ -1,7 +1,7 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class Interval
+	public class Interval : IAbstractExpressionArgument
 	{
 		public int From { get; private set; }
 		public int To { get; private set; }

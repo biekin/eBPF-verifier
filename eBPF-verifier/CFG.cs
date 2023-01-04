@@ -17,6 +17,7 @@ namespace eBPF_verifier
 		public void AddNode(ICFGNode node)
 		{
 			Nodes.Add(node);
+			node.Cfg = this;
         }
 
         public void AddEdge(ICFGEdge edge)
