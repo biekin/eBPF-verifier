@@ -16,6 +16,11 @@ namespace eBPF_verifier
             Operation = operation;
 		}
 
+        public AbstractExpression GetAbstractExpression()
+        {
+            return new AbstractExpression(Arg1.GetInterval(), Arg2.GetInterval());
+        }
+
         public override string ToString()
         {
             return $"{Arg1} {Operation} {Arg2}";

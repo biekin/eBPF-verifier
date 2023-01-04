@@ -22,6 +22,8 @@ namespace eBPF_verifier
 
         public AbstractExpression GetAbstractExpresison()
         {
+
+
             throw new NotImplementedException();
         }
 
