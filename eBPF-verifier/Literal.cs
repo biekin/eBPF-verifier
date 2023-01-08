@@ -3,17 +3,12 @@ namespace eBPF_verifier
 {
 	public class Literal : IArgument
 	{
-		private int Value;
+		public int Value { get; set; }
 
-		public Literal(int value)
-		{
-			Value = value;
-		}
-
-		public Interval GetInterval()
-		{
-			return new Interval(Value, Value);
-		}
+        public Literal(int value)
+        {
+            Value = value;
+        }
 
         public override string ToString()
         {

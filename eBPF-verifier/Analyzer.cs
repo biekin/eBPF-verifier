@@ -7,7 +7,7 @@ namespace eBPF_verifier
 
 		private IIterator Iterator;
 
-		private List<Equation> Equations = new List<Equation>;
+		private List<Equation> Equations = new List<Equation>();
 
 		public Analyzer(CFG cfg, IIterator iterator)
 		{
@@ -15,7 +15,7 @@ namespace eBPF_verifier
 			Iterator = iterator;
 		}
 
-		private void GenerateEquations()
+		public void GenerateEquations()
 		{
 			foreach(var n in Cfg.Nodes)
 			{

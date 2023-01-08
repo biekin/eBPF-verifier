@@ -18,7 +18,7 @@ namespace eBPF_verifier
 			Condition = condition;
 		}
 
-        public AbstractExpression GetAbstractExpresison()
+        public IEdgeExpression GetEdgeExpresison()
         {
             throw new NotImplementedException();
         }

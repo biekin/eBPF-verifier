@@ -1,7 +1,7 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class ArithmeticExpresion : IExpression
+	public class ArithmeticExpresion : IEdgeExpression
 	{
         private IArgument Arg1;
 
@@ -16,9 +16,9 @@ namespace eBPF_verifier
             Operation = operation;
 		}
 
-        public AbstractExpression GetAbstractExpression()
+        public EdgeExpression GetAbstractExpression()
         {
-            return new AbstractExpression(Arg1.GetInterval(), Arg2.GetInterval());
+            return new EdgeExpression();
         }
 
         public override string ToString()

@@ -6,7 +6,7 @@ namespace eBPF_verifier
 		ICFGNode From { get; }
 		ICFGNode To { get; }
 
-		AbstractExpression GetAbstractExpresison();
+		IEdgeExpression GetEdgeExpresison();
 	}
 }
 
