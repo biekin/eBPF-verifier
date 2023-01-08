@@ -8,11 +8,11 @@ namespace eBPF_verifier
         // TODO support assignment of single variable / literal
         private IEdgeExpression Expression;
 
-        public ICFGNode From { get; private set; }
+        public ProgramPoint From { get; private set; }
 
-        public ICFGNode To { get; private set; }
+        public ProgramPoint To { get; private set; }
 
-        public AssignmentEdge(ICFGNode from, ICFGNode to, IProgramVariable programVariable, IEdgeExpression expression)
+        public AssignmentEdge(ProgramPoint from, ProgramPoint to, IProgramVariable programVariable, IEdgeExpression expression)
 		{
             From = from;
             To = to;

@@ -23,7 +23,7 @@ namespace eBPF_verifier
 			}
 		}
 
-		private Equation GetEquation(ICFGNode n)
+		private Equation GetEquation(ProgramPoint n)
 		{
 			var nodeEquation = n.GetEquation();
 			return nodeEquation;

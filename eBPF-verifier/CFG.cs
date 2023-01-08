@@ -4,7 +4,7 @@ namespace eBPF_verifier
 {
 	public class CFG
 	{
-		public List<ICFGNode> Nodes = new List<ICFGNode>();
+		public List<ProgramPoint> Nodes = new List<ProgramPoint>();
 		public List<ICFGEdge> Edges = new List<ICFGEdge>();
 
 		public CFG() { }
@@ -14,7 +14,7 @@ namespace eBPF_verifier
 			return true;
 		}
 
-		public void AddNode(ICFGNode node)
+		public void AddNode(ProgramPoint node)
 		{
 			Nodes.Add(node);
 			node.Cfg = this;

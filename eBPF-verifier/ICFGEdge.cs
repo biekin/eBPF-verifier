@@ -3,8 +3,8 @@ namespace eBPF_verifier
 {
 	public interface ICFGEdge
 	{
-		ICFGNode From { get; }
-		ICFGNode To { get; }
+        ProgramPoint From { get; }
+        ProgramPoint To { get; }
 
 		IEdgeExpression GetEdgeExpresison();
 	}
