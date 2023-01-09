@@ -27,6 +27,11 @@ namespace eBPF_verifier
         {
             return $"Edge: {From} --> {To}; {Condition}";
         }
+
+        public EdgeExpression GetEdgeExpression()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

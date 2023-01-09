@@ -16,7 +16,17 @@ namespace eBPF_verifier
 
         public override string ToString()
         {
-            return $"{Arg1} {Operation} {Arg2}";
+            string GetArithmeticOperationString(ArithmeticOperation op)
+            {
+                switch (op)
+                {
+                    case ArithmeticOperation.Add:
+                        return "+";
+                    default:
+                        return "-";
+                }
+            }
+            return $"{Arg1} {GetArithmeticOperationString(Operation)} {Arg2}";
         }
     }
 }
