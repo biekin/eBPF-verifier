@@ -7,7 +7,7 @@ namespace eBPF_verifier
 
 		public AbstractExpression() { }
 
-		public void AddArgumnt(AbstractExpressionArgument arg)
+		public void AddArgument(AbstractExpressionArgument arg)
 		{
 			Arguments.Add(arg);
 		}

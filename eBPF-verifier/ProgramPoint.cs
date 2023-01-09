@@ -20,7 +20,9 @@ namespace eBPF_verifier
 
 			foreach (var edge in edgesToThis)
 			{
-				// TODO 
+				var programPointFrom = edge.From;
+				var edgeExpression = edge.GetEdgeExpression();
+				abstractExpression.AddArgument(new AbstractExpressionArgument(programPointFrom, edgeExpression));
 			}
 
 			return new Equation(this, abstractState, abstractExpression);
