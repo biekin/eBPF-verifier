@@ -14,6 +14,11 @@ namespace eBPF_verifier
             Operation = operation;
 		}
 
+        public Interval GetInterval(AbstractState abstractState)
+        {
+            throw new NotImplementedException(); // TODO 
+        }
+
         public override string ToString()
         {
             string GetArithmeticOperationString(ArithmeticOperation op)

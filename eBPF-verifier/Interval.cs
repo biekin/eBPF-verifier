@@ -22,7 +22,7 @@ namespace eBPF_verifier
             return new Interval(a.From - b.From, a.To - b.To);
         }
 
-		public static Interval GreatestUpperBound(Interval a, Interval b)
+		public static Interval GreatestLowerBound(Interval a, Interval b)
         {
 			return new Interval(Math.Min(a.From, b.From), Math.Max(a.To, b.To));
 		}
@@ -30,6 +30,23 @@ namespace eBPF_verifier
 		public static Interval LeastUpperBound(Interval a, Interval b)
         {
 			return Normalize(new Interval(Math.Max(a.From, b.From), Math.Min(a.To, b.To)));
+		}
+
+		public static Interval PerformIntervalOperation(Interval a, Interval? b, IntervalOperation operation)
+		{
+			switch (operation)
+			{
+				case IntervalOperation.Add:
+					return Add(a, b);
+				case IntervalOperation.Subtract:
+					return Subtract(a, b);
+				case IntervalOperation.LeastUpperBound:
+					return LeastUpperBound(a, b);
+				case IntervalOperation.GreatestLowerBound:
+					return GreatestLowerBound(a, b);
+				default:
+					return a;
+			}
 		}
 
 		private static Interval Normalize(Interval i)

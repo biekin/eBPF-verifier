@@ -14,6 +14,11 @@ namespace eBPF_verifier
         {
 			return Name;
         }
+
+        public Interval GetInterval(AbstractState abstractState)
+        {
+            return abstractState.GetIntervalOfRegister(this);
+        }
     }
 }
 

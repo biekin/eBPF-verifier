@@ -14,6 +14,11 @@ namespace eBPF_verifier
         {
 			return Value.ToString();
         }
+
+        public Interval GetInterval(AbstractState _)
+        {
+            return new Interval(Value, Value);
+        }
     }
 }
 

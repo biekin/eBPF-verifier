@@ -30,7 +30,7 @@ namespace eBPF_verifier
 
         public EdgeExpression GetEdgeExpression()
         {
-            throw new NotImplementedException();
+            return new EdgeExpression(GetProgramVariable(), Condition);
         }
     }
 }

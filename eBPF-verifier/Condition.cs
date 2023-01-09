@@ -1,7 +1,7 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class Condition
+	public class Condition : IIntervalEvaluable
 	{
 		public IProgramVariable ProgramVariable { get; private set; }
 		private string Ineqaulity;
@@ -17,6 +17,11 @@ namespace eBPF_verifier
         public override string ToString()
         {
 			return $"{ProgramVariable} {Ineqaulity} {Arg}";
+        }
+
+        public Interval GetInterval(AbstractState abstractState)
+        {
+            throw new NotImplementedException();
         }
     }
 }
