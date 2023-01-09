@@ -11,6 +11,11 @@ namespace eBPF_verifier
 			ProgramPointFrom = programPoint;
 			EdgeExpression = edgeExpression;
 		}
-	}
+
+        public override string ToString()
+        {
+			return $"⟦{EdgeExpression}⟧({ProgramPointFrom})";
+        }
+    }
 }
 

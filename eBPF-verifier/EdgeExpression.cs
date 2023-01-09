@@ -11,6 +11,11 @@ namespace eBPF_verifier
 			ProgramVariable = programVariable;
 			IntervalEvaluableExpression = intervalEvaluable;
 		}
-	}
+
+        public override string ToString()
+        {
+			return $"{ProgramVariable}:={IntervalEvaluableExpression}";
+        }
+    }
 }
 
