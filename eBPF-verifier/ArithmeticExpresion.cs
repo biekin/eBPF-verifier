@@ -1,23 +1,18 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class ArithmeticExpresion : IEdgeExpression
-	{
+	public class ArithmeticExpresion : IProgramExpression
+    {
         private IArgument Arg1;
         private IArgument Arg2;
-        private string Operation;
+        private ArithmeticOperation Operation;
 
-        public ArithmeticExpresion(IArgument arg1, IArgument arg2, string operation)
+        public ArithmeticExpresion(IArgument arg1, IArgument arg2, ArithmeticOperation operation)
 		{
             Arg1 = arg1;
             Arg2 = arg2;
             Operation = operation;
 		}
-
-        public EdgeExpression GetEdgeExpression()
-        {
-            return new EdgeExpression();
-        }
 
         public override string ToString()
         {

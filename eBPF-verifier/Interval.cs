@@ -12,26 +12,24 @@ namespace eBPF_verifier
 			To = to;
 		}
 
-		public Interval Add(Interval another)
+		public static Interval Add(Interval a, Interval b)
 		{
-			return new Interval(From + another.From, To + another.To);
+			return new Interval(a.From + b.From, a.To + b.To);
 		}
 
-        public Interval Subtract(Interval another)
+        public static Interval Subtract(Interval a, Interval b)
         {
-            return new Interval(From - another.From, To - another.To);
+            return new Interval(a.From - b.From, a.To - b.To);
         }
 
-		// TODO proper name
-		public Interval SetSum(Interval another)
-		{
-			return new Interval(Math.Min(From, another.From), Math.Max(To, another.To));
+		public static Interval GreatestUpperBound(Interval a, Interval b)
+        {
+			return new Interval(Math.Min(a.From, b.From), Math.Max(a.To, b.To));
 		}
 
-		// TODO proper name
-		public Interval SetIntersection(Interval another)
-		{
-			return Normalize(new Interval(Math.Max(From, another.From), Math.Min(To, another.To)));
+		public static Interval LeastUpperBound(Interval a, Interval b)
+        {
+			return Normalize(new Interval(Math.Max(a.From, b.From), Math.Min(a.To, b.To)));
 		}
 
 		private static Interval Normalize(Interval i)

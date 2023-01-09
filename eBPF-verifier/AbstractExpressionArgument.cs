@@ -4,9 +4,9 @@ namespace eBPF_verifier
 	public class AbstractExpressionArgument
 	{
 		private ProgramPoint ProgramPointFrom;
-		private IEdgeExpression EdgeExpression;
+		private IProgramExpression EdgeExpression;
 
-		public AbstractExpressionArgument(ProgramPoint programPoint, IEdgeExpression edgeExpression)
+		public AbstractExpressionArgument(ProgramPoint programPoint, IProgramExpression edgeExpression)
 		{
 			ProgramPointFrom = programPoint;
 			EdgeExpression = edgeExpression;

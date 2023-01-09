@@ -18,11 +18,6 @@ namespace eBPF_verifier
 			Condition = condition;
 		}
 
-        public IEdgeExpression GetEdgeExpresison()
-        {
-            throw new NotImplementedException();
-        }
-
         public IProgramVariable GetProgramVariable()
         {
             return Condition.ProgramVariable;

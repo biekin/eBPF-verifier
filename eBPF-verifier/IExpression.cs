@@ -1,9 +1,9 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public interface IEdgeExpression
+	public interface IProgramExpression
 	{
-		EdgeExpression GetEdgeExpression();
+
 	}
 }
 

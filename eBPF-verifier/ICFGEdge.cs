@@ -6,7 +6,6 @@ namespace eBPF_verifier
         ProgramPoint From { get; }
         ProgramPoint To { get; }
 
-		IEdgeExpression GetEdgeExpresison();
 		IProgramVariable GetProgramVariable();
 	}
 }

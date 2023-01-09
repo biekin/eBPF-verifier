@@ -6,13 +6,13 @@ namespace eBPF_verifier
 		private IProgramVariable ProgramVariable;
 
         // TODO support assignment of single variable / literal
-        private IEdgeExpression Expression;
+        private IProgramExpression Expression;
 
         public ProgramPoint From { get; private set; }
 
         public ProgramPoint To { get; private set; }
 
-        public AssignmentEdge(ProgramPoint from, ProgramPoint to, IProgramVariable programVariable, IEdgeExpression expression)
+        public AssignmentEdge(ProgramPoint from, ProgramPoint to, IProgramVariable programVariable, IProgramExpression expression)
 		{
             From = from;
             To = to;
@@ -20,7 +20,7 @@ namespace eBPF_verifier
 			Expression = expression;
 		}
 
-        public IEdgeExpression GetEdgeExpresison()
+        public IProgramExpression GetEdgeExpresison()
         {
             return Expression;
         }
