@@ -3,7 +3,7 @@ namespace eBPF_verifier
 {
 	public interface IEdgeExpression
 	{
-		EdgeExpression GetAbstractExpression();
+		EdgeExpression GetEdgeExpression();
 	}
 }
 

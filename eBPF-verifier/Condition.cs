@@ -3,7 +3,7 @@ namespace eBPF_verifier
 {
 	public class Condition
 	{
-		private IProgramVariable ProgramVariable;
+		public IProgramVariable ProgramVariable { get; private set; }
 		private string Ineqaulity;
 		private IArgument Arg;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class ProgramPoint : ICFGNode
+	public class ProgramPoint
 	{
 
 		public CFG Cfg { get; set; }
@@ -14,33 +14,16 @@ namespace eBPF_verifier
 
 		public Equation GetEquation()
 		{
-			AbstractExpression GetAbstracExpressionFromListOfEdges(List<ICFGEdge> edges)
+			AbstractState abstractState = Cfg.GetBlankAbstractState();
+			AbstractExpression abstractExpression = new AbstractExpression();
+			var edgesToThis = Cfg.Edges.Where(e => e.To == this);
+
+			foreach (var edge in edgesToThis)
 			{
-				if(edges.Count == 2)
-				{
-					return new AbstractExpression(edges[0].GetAbstractExpresison(), edges[1].GetAbstractExpresison());
-				}
-				else
-				{
-					return new AbstractExpression(edges[0].GetAbstractExpresison(), GetAbstracExpressionFromListOfEdges(edges.Skip(1).ToList()));
-				}
+				abstractExpression.AddArgumnt(new AbstractExpressionArgument(edge.From, edge.GetEdgeExpresison()));
 			}
 
-			var edgesToThis = Cfg.Edges.Where(e => e.To == this).ToList();
-			AbstractExpression abstractExpression = null;
-
-			if (edgesToThis.Count == 1)
-			{
-				abstractExpression = edgesToThis[0].GetAbstractExpresison();
-			}
-
-			if (edgesToThis.Count > 1)
-			{
-				abstractExpression = GetAbstracExpressionFromListOfEdges(edgesToThis);
-			}
-
-			var abstractState = new AbstractState(); // TODO
-			return new Equation(this, abstractExpression, abstractState);
+			return new Equation(this, abstractState, abstractExpression);
 		}
 
         public override string ToString()

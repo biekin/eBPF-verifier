@@ -3,12 +3,12 @@ namespace eBPF_verifier
 {
 	public class AbstractExpressionArgument
 	{
-		private AbstractState AbstractState;
+		private ProgramPoint ProgramPointFrom;
 		private IEdgeExpression EdgeExpression;
 
-		public AbstractExpressionArgument(AbstractState abstractState, IEdgeExpression edgeExpression)
+		public AbstractExpressionArgument(ProgramPoint programPoint, IEdgeExpression edgeExpression)
 		{
-			AbstractState = abstractState;
+			ProgramPointFrom = programPoint;
 			EdgeExpression = edgeExpression;
 		}
 	}

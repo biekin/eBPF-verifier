@@ -22,9 +22,12 @@ namespace eBPF_verifier
 
         public IEdgeExpression GetEdgeExpresison()
         {
+            return Expression;
+        }
 
-
-            throw new NotImplementedException();
+        public IProgramVariable GetProgramVariable()
+        {
+            return ProgramVariable;
         }
 
         public override string ToString()

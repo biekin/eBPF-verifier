@@ -4,16 +4,14 @@ namespace eBPF_verifier
 	public class Equation
 	{
 		private ProgramPoint ProgramPoint;
+        private AbstractState AbstractState;
+        private AbstractExpression AbstractExpression;
 
-		private AbstractExpression AbstractExpression;
-
-		private AbstractState AbstractState;
-
-		public Equation(ProgramPoint programPoint, AbstractExpression abstractExpression, AbstractState abstractState)
+		public Equation(ProgramPoint programPoint, AbstractState abstractState, AbstractExpression abstractExpression)
 		{
 			ProgramPoint = programPoint;
-			AbstractExpression = abstractExpression;
 			AbstractState = abstractState;
+            AbstractExpression = abstractExpression;
 		}
 	}
 }

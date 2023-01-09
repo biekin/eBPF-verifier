@@ -6,6 +6,11 @@ namespace eBPF_verifier
 		private List<AbstractExpressionArgument> Arguments = new List<AbstractExpressionArgument>();
 
 		public AbstractExpression() { }
+
+		public void AddArgumnt(AbstractExpressionArgument arg)
+		{
+			Arguments.Add(arg);
+		}
 	}
 }
 

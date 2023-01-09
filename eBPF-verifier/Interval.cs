@@ -1,7 +1,7 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class Interval : IAbstractExpressionArgument
+	public class Interval : IIntervalEvaluable
 	{
 		public int From { get; private set; }
 		public int To { get; private set; }
@@ -42,6 +42,11 @@ namespace eBPF_verifier
         public override string ToString()
         {
 			return $"Interval: [{From}, {To}]";
+        }
+
+        public Interval GetInterval(AbstractState abstractState)
+        {
+			return this;
         }
     }
 }

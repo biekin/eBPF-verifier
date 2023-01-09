@@ -23,6 +23,11 @@ namespace eBPF_verifier
             throw new NotImplementedException();
         }
 
+        public IProgramVariable GetProgramVariable()
+        {
+            return Condition.ProgramVariable;
+        }
+
         public override string ToString()
         {
             return $"Edge: {From} --> {To}; {Condition}";

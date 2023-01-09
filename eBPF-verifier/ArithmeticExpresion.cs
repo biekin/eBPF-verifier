@@ -4,9 +4,7 @@ namespace eBPF_verifier
 	public class ArithmeticExpresion : IEdgeExpression
 	{
         private IArgument Arg1;
-
         private IArgument Arg2;
-
         private string Operation;
 
         public ArithmeticExpresion(IArgument arg1, IArgument arg2, string operation)
@@ -16,7 +14,7 @@ namespace eBPF_verifier
             Operation = operation;
 		}
 
-        public EdgeExpression GetAbstractExpression()
+        public EdgeExpression GetEdgeExpression()
         {
             return new EdgeExpression();
         }
