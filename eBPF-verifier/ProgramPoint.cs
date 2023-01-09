@@ -6,6 +6,7 @@ namespace eBPF_verifier
 
 		public CFG Cfg { get; set; }
 		public string Label { get; private set; }
+		public AbstractState AbstractState = new AbstractState();
 
 		public ProgramPoint(string label)
 		{
@@ -14,7 +15,7 @@ namespace eBPF_verifier
 
 		public Equation GetEquation()
 		{
-			AbstractState abstractState = Cfg.GetBlankAbstractState();
+			AbstractState = Cfg.GetBlankAbstractState();
 			AbstractExpression abstractExpression = new AbstractExpression();
 			var edgesToThis = Cfg.Edges.Where(e => e.To == this);
 
@@ -25,12 +26,12 @@ namespace eBPF_verifier
 				abstractExpression.AddArgument(new AbstractExpressionArgument(programPointFrom, edgeExpression));
 			}
 
-			return new Equation(this, abstractState, abstractExpression);
+			return new Equation(this, abstractExpression);
 		}
 
         public override string ToString()
         {
-			return Label;
+			return $"PP#{Label}";
         }
     }
 }

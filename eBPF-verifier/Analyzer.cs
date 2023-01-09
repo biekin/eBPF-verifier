@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 namespace eBPF_verifier
 {
 	public class Analyzer
@@ -27,6 +28,19 @@ namespace eBPF_verifier
 		{
 			var nodeEquation = n.GetEquation();
 			return nodeEquation;
+		}
+
+		public void PrintEquations()
+		{
+			var sb = new StringBuilder();
+			sb.Append($"{Equations.Count} Equation(s):\n");
+
+			foreach(var eq in Equations)
+			{
+				sb.Append(eq.ToString());
+			}
+
+			Console.WriteLine(sb.ToString());
 		}
 	}
 }

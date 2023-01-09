@@ -33,3 +33,4 @@ Console.WriteLine(ex1);
 
 var analyzer = new Analyzer(ex1, new BasicIterator());
 analyzer.GenerateEquations();
+analyzer.PrintEquations();
