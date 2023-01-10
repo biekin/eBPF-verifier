@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 namespace eBPF_verifier
 {
 	public class AbstractState
@@ -19,6 +20,16 @@ namespace eBPF_verifier
 		{
 			return VariablesIntervals[r];
 		}
-	}
+
+        public override string ToString()
+        {
+			var sb = new StringBuilder();
+			foreach(var varInterval in VariablesIntervals)
+			{
+				sb.Append($"{varInterval.Key} -> {varInterval.Value}\n");
+			}
+			return sb.ToString();
+        }
+    }
 }
 

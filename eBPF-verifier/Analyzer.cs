@@ -45,8 +45,12 @@ namespace eBPF_verifier
 
 		public void PrintCurrentStates()
 		{
-            var sb = new StringBuilder();
-            Console.WriteLine(sb.ToString());
+			var sb = new StringBuilder();
+			foreach(var pp in Cfg.Nodes)
+			{
+				sb.Append($"{pp}:\n{pp.AbstractState}\n");
+			}
+			Console.WriteLine(sb.ToString());
         }
 	}
 }
