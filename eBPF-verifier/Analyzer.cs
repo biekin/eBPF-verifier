@@ -42,6 +42,12 @@ namespace eBPF_verifier
 
 			Console.WriteLine(sb.ToString());
 		}
+
+		public void PrintCurrentStates()
+		{
+            var sb = new StringBuilder();
+            Console.WriteLine(sb.ToString());
+        }
 	}
 }
 
