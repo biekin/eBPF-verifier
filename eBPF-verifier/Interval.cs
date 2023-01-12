@@ -14,21 +14,29 @@ namespace eBPF_verifier
 
 		public static Interval Add(Interval a, Interval b)
 		{
+			if (a == null) return null;
+			if (b == null) return null;
 			return new Interval(a.From + b.From, a.To + b.To);
 		}
 
         public static Interval Subtract(Interval a, Interval b)
         {
+            if (a == null) return null;
+            if (b == null) return null;
             return new Interval(a.From - b.From, a.To - b.To);
         }
 
 		public static Interval GreatestLowerBound(Interval a, Interval b)
         {
-			return new Interval(Math.Min(a.From, b.From), Math.Max(a.To, b.To));
+            if (a == null) return null;
+            if (b == null) return null;
+            return new Interval(Math.Min(a.From, b.From), Math.Max(a.To, b.To));
 		}
 
 		public static Interval LeastUpperBound(Interval a, Interval b)
         {
+			if (a == null) return b;
+			if (b == null) return a;
 			return Normalize(new Interval(Math.Max(a.From, b.From), Math.Min(a.To, b.To)));
 		}
 

@@ -5,9 +5,14 @@ namespace eBPF_verifier
 	{
 		public BasicIterator() { }
 
-        public Solution Solve()
+        public Solution Solve(List<Equation> equations)
         {
-            throw new NotImplementedException();
+            var fixpoint = new Solution();
+            foreach(var eq in equations)
+            {
+                fixpoint.AddProgramPoint(eq.ProgramPoint);
+            }
+            return fixpoint;
         }
     }
 }

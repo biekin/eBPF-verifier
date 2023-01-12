@@ -4,24 +4,25 @@ namespace eBPF_verifier
 	public class Condition : IIntervalEvaluable
 	{
 		public IProgramVariable ProgramVariable { get; private set; }
-		private string Ineqaulity;
-		private IArgument Arg;
+		private string Inequality;
+		private Literal Arg;
 
-		public Condition(IProgramVariable programVariable, string inequality, IArgument arg)
+		public Condition(IProgramVariable programVariable, string inequality, Literal arg)
 		{
 			ProgramVariable = programVariable;
-			Ineqaulity = inequality;
+			Inequality = inequality;
 			Arg = arg;
 		}
 
         public override string ToString()
         {
-			return $"{ProgramVariable} {Ineqaulity} {Arg}";
+			return $"{ProgramVariable} {Inequality} {Arg}";
         }
 
         public Interval GetInterval(AbstractState abstractState)
         {
-            throw new NotImplementedException();
+			var i = Arg.GetInequalityInterval(Inequality);
+			return Interval.GreatestLowerBound(i, abstractState.GetIntervalOfRegister(ProgramVariable));
         }
     }
 }

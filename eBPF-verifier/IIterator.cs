@@ -3,7 +3,7 @@ namespace eBPF_verifier
 {
 	public interface IIterator
 	{
-		Solution Solve();
+		Solution Solve(List<Equation> equations);
 	}
 }
 

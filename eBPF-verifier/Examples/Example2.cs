@@ -53,6 +53,10 @@ namespace eBPF_verifier
             analyzer.GenerateEquations();
             analyzer.PrintEquations();
             analyzer.PrintCurrentStates();
+            analyzer.Solve();
+            analyzer.PrintCurrentStates();
+            analyzer.Solve();
+            analyzer.PrintCurrentStates();
         }
     }
 }

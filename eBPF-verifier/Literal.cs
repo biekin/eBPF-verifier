@@ -19,6 +19,22 @@ namespace eBPF_verifier
         {
             return new Interval(Value, Value);
         }
+
+        public Interval GetInequalityInterval(string inequality)
+        {
+            switch (inequality)
+            {
+                case "<":
+                    return new Interval(int.MinValue, Value - 1);
+                case ">":
+                    return new Interval(Value + 1, int.MaxValue);
+                case "<=":
+                    return new Interval(int.MinValue, Value);
+                default:
+                    return new Interval(Value, int.MaxValue);
+
+            }
+        }
     }
 }
 

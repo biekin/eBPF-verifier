@@ -3,8 +3,8 @@ namespace eBPF_verifier
 {
 	public class AbstractExpressionArgument
 	{
-		private ProgramPoint ProgramPointFrom;
-		private EdgeExpression EdgeExpression;
+		public ProgramPoint ProgramPointFrom;
+		public EdgeExpression EdgeExpression;
 
 		public AbstractExpressionArgument(ProgramPoint programPoint, EdgeExpression edgeExpression)
 		{
@@ -12,7 +12,12 @@ namespace eBPF_verifier
 			EdgeExpression = edgeExpression;
 		}
 
-        public override string ToString()
+		public Interval GetInterval()
+		{
+			return EdgeExpression.GetInterval(ProgramPointFrom.AbstractState);
+		}
+
+		public override string ToString()
         {
 			return $"⟦{EdgeExpression}⟧({ProgramPointFrom})";
         }

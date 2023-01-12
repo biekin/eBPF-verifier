@@ -30,6 +30,14 @@ namespace eBPF_verifier
 			return nodeEquation;
 		}
 
+		public void Solve()
+		{
+			foreach (var eq in Equations)
+			{
+				eq.Update();
+			}
+		}
+
 		public void PrintEquations()
 		{
 			var sb = new StringBuilder();

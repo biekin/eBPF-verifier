@@ -16,7 +16,21 @@ namespace eBPF_verifier
 
         public Interval GetInterval(AbstractState abstractState)
         {
-            throw new NotImplementedException(); // TODO 
+            var i1 = Arg1.GetInterval(abstractState);
+            var i2 = Arg2.GetInterval(abstractState);
+            var op = Arithmetic2IntervalOperation(Operation);
+            return Interval.PerformIntervalOperation(i1, i2, op);
+        }
+
+        public static IntervalOperation Arithmetic2IntervalOperation(ArithmeticOperation arithmeticOperation)
+        {
+            switch (arithmeticOperation)
+            {
+                case ArithmeticOperation.Add:
+                    return IntervalOperation.Add;
+                default:
+                    return IntervalOperation.Subtract;
+            }
         }
 
         public override string ToString()

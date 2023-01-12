@@ -3,9 +3,21 @@ namespace eBPF_verifier
 {
 	public class Solution
 	{
-		private Dictionary<ProgramPoint, AbstractState> FixpointState = new Dictionary<ProgramPoint, AbstractState>();
+		public HashSet<ProgramPoint> FixpointState { get; private set; }
 
-		public Solution() { }
+		public Solution()
+		{
+			FixpointState = new HashSet<ProgramPoint>();
+		}
+		public Solution(HashSet<ProgramPoint> fixpoint)
+		{
+			FixpointState = fixpoint;
+		}
+
+		public void AddProgramPoint(ProgramPoint programPoint)
+		{
+			FixpointState.Add(programPoint);
+		}
 	}
 }
 

@@ -32,7 +32,7 @@ namespace eBPF_verifier
 			var blankAbstractState = new AbstractState();
 			foreach (var v in Variables)
 			{
-				blankAbstractState.AddVariable(v);
+				blankAbstractState.Add(v);
 			}
 			return blankAbstractState;
 		}
