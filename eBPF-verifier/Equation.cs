@@ -14,13 +14,21 @@ namespace eBPF_verifier
 
 		public void Update()
 		{
+			var argStates = new List<AbstractState>();
 			foreach (var arg in AbstractExpression.Arguments)
 			{
 				var variable = arg.EdgeExpression.ProgramVariable;
-				var abstractState = arg.ProgramPointFrom.AbstractState;
+				var abstractState = new AbstractState(arg.ProgramPointFrom.AbstractState);
 				var interval = arg.EdgeExpression.IntervalEvaluableExpression.GetInterval(abstractState);
-				ProgramPoint.AbstractState.Update(variable, interval);
+				abstractState.ExtendIntervalOfVariable(variable, interval); // TODO when extend when update
+				argStates.Add(abstractState);
 			}
+			var newState = new AbstractState(ProgramPoint.AbstractState.VariablesIntervals.Keys.ToList());
+			foreach(var s in argStates)
+			{
+				newState = AbstractState.LeastUpperBound(newState, s);
+			}
+			ProgramPoint.AbstractState = newState;
 		}
 
 		public override string ToString()

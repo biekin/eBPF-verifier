@@ -16,6 +16,14 @@ namespace eBPF_verifier
 			}
 		}
 
+		public AbstractState(List<IProgramVariable> variables)
+		{
+			foreach(var v in variables)
+			{
+				Add(v);
+			}
+		}
+
 		public void Add(IProgramVariable v, Interval interval = null)
 		{
 			if (!VariablesIntervals.ContainsKey(v))
@@ -26,7 +34,8 @@ namespace eBPF_verifier
 
 		public Interval GetIntervalOfRegister(IProgramVariable r)
 		{
-			return VariablesIntervals[r];
+			if (VariablesIntervals.ContainsKey(r)) return VariablesIntervals[r];
+			return null;
 		}
 
         public override string ToString()
@@ -57,6 +66,17 @@ namespace eBPF_verifier
 				newState.Add(v, interval);
 			}
 			return newState;
+		}
+
+		public void ExtendIntervalOfVariable(IProgramVariable variable, Interval interval)
+		{
+			if (!VariablesIntervals.ContainsKey(variable))
+			{
+				Add(variable, interval);
+			} else
+			{
+				VariablesIntervals[variable] = Interval.LeastUpperBound(VariablesIntervals[variable], interval);
+			}
 		}
     }
 }

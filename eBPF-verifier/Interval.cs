@@ -30,17 +30,17 @@ namespace eBPF_verifier
         {
             if (a == null) return null;
             if (b == null) return null;
-            return new Interval(Math.Min(a.From, b.From), Math.Max(a.To, b.To));
-		}
+            return Normalize(new Interval(Math.Max(a.From, b.From), Math.Min(a.To, b.To)));
+        }
 
 		public static Interval LeastUpperBound(Interval a, Interval b)
         {
 			if (a == null) return b;
 			if (b == null) return a;
-			return Normalize(new Interval(Math.Max(a.From, b.From), Math.Min(a.To, b.To)));
-		}
+            return new Interval(Math.Min(a.From, b.From), Math.Max(a.To, b.To));
+        }
 
-		public static Interval PerformIntervalOperation(Interval a, Interval? b, IntervalOperation operation)
+        public static Interval PerformIntervalOperation(Interval a, Interval? b, IntervalOperation operation)
 		{
 			switch (operation)
 			{
