@@ -30,12 +30,9 @@ namespace eBPF_verifier
 			return nodeEquation;
 		}
 
-		public void Solve()
+		public Solution Solve()
 		{
-			foreach (var eq in Equations)
-			{
-				eq.Update();
-			}
+			return Iterator.Solve(Equations);
 		}
 
 		public void PrintEquations()
