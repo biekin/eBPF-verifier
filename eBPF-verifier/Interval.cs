@@ -12,6 +12,12 @@ namespace eBPF_verifier
 			To = to;
 		}
 
+		public Interval(Interval another)
+		{
+			From = another.From;
+			To = another.To;
+		}
+
 		public static Interval Add(Interval a, Interval b)
 		{
 			if (a == null) return null;
@@ -59,7 +65,7 @@ namespace eBPF_verifier
 
 		private static Interval Normalize(Interval i)
 		{
-			return (i.From < i.To) ? i : null; // TODO better indicate empty interval
+			return (i.From <= i.To) ? i : null;
 		}
 
         public override string ToString()
@@ -69,7 +75,7 @@ namespace eBPF_verifier
 
         public Interval GetInterval(AbstractState abstractState)
         {
-			return this;
+			return new Interval(From, To);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace eBPF_verifier
 	{
         // EXAMPLE 1
         //    x := 100
-        //    while x < 0 {
+        //    while x > 0 {
         //        x := x-1
         //    }
 
@@ -42,8 +42,8 @@ namespace eBPF_verifier
             analyzer.GenerateEquations();
             analyzer.PrintEquations();
             analyzer.PrintCurrentStates();
-            analyzer.Solve();
-            analyzer.PrintCurrentStates();
+            var solution = analyzer.Solve();
+            Console.WriteLine(solution);
         }
     }
 }
