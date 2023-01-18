@@ -30,6 +30,23 @@ namespace eBPF_verifier
 			}
 			return sb.ToString();
         }
+
+		public bool IsEqualTo(Solution another)
+		{
+			var isEqual = true;
+			foreach(var programPoint in FixpointState)
+			{
+				var ppAnother = another.FixpointState.FirstOrDefault(pp => pp.Label == programPoint.Label);
+				foreach((var v, var i) in programPoint.AbstractState.VariablesIntervals)
+				{
+					if (!ppAnother.AbstractState.VariablesIntervals[v].IsEqualTo(i))
+					{
+						isEqual = false;
+					}
+				}
+			}
+			return isEqual;
+		}
     }
 }
 

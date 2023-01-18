@@ -18,18 +18,32 @@ namespace eBPF_verifier
 			To = another.To;
 		}
 
+		public static int IntervalIntAdd(int a, int b)
+		{
+			if (a == int.MaxValue || b == int.MaxValue) return int.MaxValue;
+			if (a == int.MinValue || b == int.MinValue) return int.MinValue;
+            return a + b;
+		}
+
+		public static int IntervalIntSubtract(int a, int b)
+		{
+            if (a == int.MaxValue || b == int.MaxValue) return int.MaxValue;
+            if (a == int.MinValue || b == int.MinValue) return int.MinValue;
+            return a - b;
+        }
+
 		public static Interval Add(Interval a, Interval b)
 		{
 			if (a == null) return null;
 			if (b == null) return null;
-			return new Interval(a.From + b.From, a.To + b.To);
+			return new Interval(IntervalIntAdd(a.From, b.From), IntervalIntAdd(a.To, b.To));
 		}
 
         public static Interval Subtract(Interval a, Interval b)
         {
             if (a == null) return null;
             if (b == null) return null;
-            return new Interval(a.From - b.From, a.To - b.To);
+            return new Interval(IntervalIntSubtract(a.From, b.From), IntervalIntSubtract(a.To, b.To));
         }
 
 		public static Interval GreatestLowerBound(Interval a, Interval b)
@@ -46,7 +60,7 @@ namespace eBPF_verifier
             return new Interval(Math.Min(a.From, b.From), Math.Max(a.To, b.To));
         }
 
-        public static Interval PerformIntervalOperation(Interval a, Interval? b, IntervalOperation operation)
+        public static Interval PerformIntervalOperation(Interval a, Interval b, IntervalOperation operation)
 		{
 			switch (operation)
 			{
@@ -77,6 +91,11 @@ namespace eBPF_verifier
         {
 			return new Interval(From, To);
         }
+
+		public bool IsEqualTo(Interval another)
+		{
+			return From == another.From && To == another.To;
+		}
     }
 }
 

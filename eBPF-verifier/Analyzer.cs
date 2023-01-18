@@ -14,6 +14,7 @@ namespace eBPF_verifier
 		{
 			Cfg = cfg;
 			Iterator = iterator;
+			Iterator.Analyzer = this;
 		}
 
 		public void GenerateEquations()
@@ -46,6 +47,16 @@ namespace eBPF_verifier
 			}
 
 			Console.WriteLine(sb.ToString());
+		}
+
+		public Solution GetCurrentState()
+		{
+			var currentSolutionCandidate = new Solution();
+			foreach(var eq in Equations)
+			{
+				currentSolutionCandidate.AddProgramPoint(eq.ProgramPoint);
+			}
+			return currentSolutionCandidate;
 		}
 
 		public void PrintCurrentStates()
