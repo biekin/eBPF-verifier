@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1704.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBPF-verifier", "eBPF-verifier\eBPF-verifier.csproj", "{C18D572F-2B28-474C-933E-E61D85089C2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBPF-verifierTests", "eBPF-verifierTests\eBPF-verifierTests.csproj", "{7D201A81-DCD2-4AAD-BEE2-C3A1B0CF42F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C18D572F-2B28-474C-933E-E61D85089C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C18D572F-2B28-474C-933E-E61D85089C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C18D572F-2B28-474C-933E-E61D85089C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D201A81-DCD2-4AAD-BEE2-C3A1B0CF42F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D201A81-DCD2-4AAD-BEE2-C3A1B0CF42F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D201A81-DCD2-4AAD-BEE2-C3A1B0CF42F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D201A81-DCD2-4AAD-BEE2-C3A1B0CF42F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
