@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using eBPF_verifier;
+﻿using eBPF_verifier;
 namespace eBPF_verifierTests;
 
 [TestClass]
