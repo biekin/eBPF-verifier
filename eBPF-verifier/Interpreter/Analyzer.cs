@@ -8,13 +8,13 @@ namespace eBPF_verifier
 
 		private IIterator Iterator;
 
-		private List<Equation> Equations = new List<Equation>();
+		public List<Equation> Equations { get; private set; }
 
 		public Analyzer(CFG cfg, IIterator iterator)
 		{
-			Cfg = cfg;
+            Equations = new List<Equation>();
+            Cfg = cfg;
 			Iterator = iterator;
-			Iterator.Analyzer = this;
 		}
 
 		public void GenerateEquations()
@@ -33,7 +33,7 @@ namespace eBPF_verifier
 
 		public Solution Solve()
 		{
-			return Iterator.Solve(Equations);
+			return Iterator.Solve(this);
 		}
 
 		public void PrintEquations()
