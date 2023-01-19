@@ -54,7 +54,7 @@ namespace eBPF_verifier
 			var currentSolutionCandidate = new Solution();
 			foreach(var eq in Equations)
 			{
-				currentSolutionCandidate.AddProgramPoint(eq.ProgramPoint);
+				currentSolutionCandidate.AddOrUpdateProgramPoint(eq.ProgramPoint.Label, eq.ProgramPoint.AbstractState);
 			}
 			return currentSolutionCandidate;
 		}

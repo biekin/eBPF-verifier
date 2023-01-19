@@ -1,24 +1,31 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 namespace eBPF_verifier
 {
 	public class Solution
 	{
-		public HashSet<ProgramPoint> FixpointState { get; private set; }
+		public Dictionary<string, AbstractState> FixpointState { get; private set; }
 
 		public Solution()
 		{
-			FixpointState = new HashSet<ProgramPoint>();
+			FixpointState = new Dictionary<string, AbstractState>();
 		}
-		public Solution(HashSet<ProgramPoint> fixpoint)
+
+		public Solution(Dictionary<string, AbstractState> fixpoint)
 		{
 			FixpointState = fixpoint;
 		}
 
-		public void AddProgramPoint(ProgramPoint programPoint)
-		{
-			FixpointState.Add(programPoint);
-		}
+        public void AddOrUpdateProgramPoint(string ppLabel, AbstractState abstractState)
+        {
+            if (FixpointState.ContainsKey(ppLabel))
+            {
+                FixpointState[ppLabel] = new AbstractState(abstractState);
+            }
+            else
+            {
+                FixpointState.Add(ppLabel, new AbstractState(abstractState));
+            }
+        }
 
         public override string ToString()
         {
@@ -26,23 +33,32 @@ namespace eBPF_verifier
 			sb.Append("SOLUTION:\n");
 			foreach(var pp in FixpointState)
 			{
-				sb.Append($"{pp}:\n{pp.AbstractState}");
+				sb.Append($"PP#{pp.Key}:\n{pp.Value}");
 			}
 			return sb.ToString();
         }
 
 		public bool IsEqualTo(Solution another)
 		{
+			if (another == null) return false;
 			var isEqual = true;
-			foreach(var programPoint in FixpointState)
+			foreach(var programPoint in FixpointState.Keys)
 			{
-				var ppAnother = another.FixpointState.FirstOrDefault(pp => pp.Label == programPoint.Label);
-				foreach((var v, var i) in programPoint.AbstractState.VariablesIntervals)
+				var anotherAbstractState = another.FixpointState[programPoint];
+				foreach(var variableInterval in FixpointState[programPoint].VariablesIntervals)
 				{
-					if (!ppAnother.AbstractState.VariablesIntervals[v].IsEqualTo(i))
+					var v = variableInterval.Key;
+					var i = variableInterval.Value;
+                    var anotherVariableInterval = anotherAbstractState.GetIntervalOfRegister(v);
+					if (anotherVariableInterval != null)
 					{
-						isEqual = false;
+						if (!anotherVariableInterval.IsEqualTo(i))
+						{
+							isEqual = false;
+						}
 					}
+					else if (i != null) isEqual = false;
+                    
 				}
 			}
 			return isEqual;

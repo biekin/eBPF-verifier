@@ -3,7 +3,7 @@ namespace eBPF_verifier
 {
 	public class BasicIterator : IIterator
 	{
-        private int MaxIterations = 1000;
+        private int MaxIterations;
         public Analyzer Analyzer { get; set; }
 
         public BasicIterator(int maxIterations = 1000)
@@ -13,21 +13,27 @@ namespace eBPF_verifier
 
         public Solution Solve(List<Equation> equations)
         {
-            var solutionCandidate = new Solution();
-            int i = 0;
+            Solution solutionCandidate = null;
+            int i = 1;
             bool fixpointReached = false;
-            while(i < MaxIterations && !fixpointReached)
+            while(i <= MaxIterations && !fixpointReached)
             {
+                if(i == MaxIterations)
+                {
+                    throw new AIException($"A fixpoint state was not reached within {MaxIterations} iterations.\n" +
+                        $"Try increasing the iterations limit or use a Widening Iterator.");
+                }
                 foreach(var eq in equations)
                 {
                     eq.Update();
                 }
                 var newSolutionCadidate = Analyzer.GetCurrentState();
+                if (newSolutionCadidate.IsEqualTo(solutionCandidate))
+                {
+                    fixpointReached = true;
+                }
+                solutionCandidate = newSolutionCadidate;
                 i++;
-            }
-            foreach(var eq in equations)
-            {
-                solutionCandidate.AddProgramPoint(eq.ProgramPoint);
             }
             return solutionCandidate;
         }
