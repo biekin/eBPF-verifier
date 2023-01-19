@@ -10,8 +10,18 @@
 
   <ItemGroup>
     <None Remove="Examples\" />
+    <None Remove="Common\" />
+    <None Remove="CFG\" />
+    <None Remove="Interpreter\" />
+    <None Remove="Exceptions\" />
+    <None Remove="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Examples\" />
+    <Folder Include="Common\" />
+    <Folder Include="CFG\" />
+    <Folder Include="Interpreter\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>
