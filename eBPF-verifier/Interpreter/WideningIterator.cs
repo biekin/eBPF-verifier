@@ -15,7 +15,7 @@ namespace eBPF_verifier
         {
             Solution previousState = null;
             var fixpointReached = false;
-            var changesCounter = new Dictionary<Tuple<string, IProgramVariable, IntervalFromOrTo>, Tuple<Direction, int>>();
+            var changesCounter = new Dictionary<Tuple<string, IProgramVariable, Direction>, int>();
             while (!fixpointReached)
             {
                 foreach (var eq in analyzer.Equations)
@@ -33,16 +33,16 @@ namespace eBPF_verifier
                     {
                         foreach((var v, var i) in abstractState.VariablesIntervals)
                         {
-                            // update counter
                             var previousInterval = previousState.FixpointState[pp].GetIntervalOfRegister(v);
 
-                            var fromKey = Tuple.Create(pp, v, IntervalFromOrTo.From);
-                            (var count, var dir) = changesCounter[fromKey];
-
-                            var toKey = Tuple.Create(pp, v, IntervalFromOrTo.To);
+                            var fromKey = Tuple.Create(pp, v, Direction.Down);
+                            var count = changesCounter[fromKey];
+                            // TODO
+                            var toKey = Tuple.Create(pp, v, Direction.Up);
+                            // TODO
                         }
                     }
-                    // check if apply infinity somewhere
+                    // TODO check if apply infinity somewhere
                 }
                 previousState = newSolution;
             }
