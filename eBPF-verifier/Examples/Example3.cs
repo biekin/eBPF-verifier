@@ -3,6 +3,12 @@ namespace eBPF_verifier
 {
 	public class Example3
 	{
+        //x=3
+        //if(x>0)
+        //  y=2
+        //else 
+        //  y = -2
+
 		public Example3() { }
 
 		public void Execute()

@@ -171,7 +171,6 @@ public class BasicIteratorTests
 
         Assert.IsTrue(expectedSolution.IsEqualTo(solution));
 
-
         //PP#0:
         //x->
         //y->
