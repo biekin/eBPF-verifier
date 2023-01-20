@@ -49,7 +49,8 @@ namespace eBPF_verifier
 
             Console.WriteLine(ex2);
 
-            var analyzer = new Analyzer(ex2, new BasicIterator());
+            //var analyzer = new Analyzer(ex2, new BasicIterator());
+            var analyzer = new Analyzer(ex2, new WideningIterator(5));
             analyzer.GenerateEquations();
             analyzer.PrintEquations();
             var solution = analyzer.Solve();
