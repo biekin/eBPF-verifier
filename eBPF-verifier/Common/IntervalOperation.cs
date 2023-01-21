@@ -6,7 +6,10 @@ namespace eBPF_verifier
 		Add,
 		Subtract,
 		LeastUpperBound,
-		GreatestLowerBound
+		GreatestLowerBound,
+		Multiply,
+		Divide,
+		Modulo
 	}
 }
 

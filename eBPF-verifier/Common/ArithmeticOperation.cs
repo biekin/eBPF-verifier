@@ -8,7 +8,13 @@ namespace eBPF_verifier
         [Description("+")]
         Add,
         [Description("-")]
-        Subtract
+        Subtract,
+        [Description("*")]
+        Multiply,
+        [Description("/")]
+        Divide,
+        [Description("%")]
+        Modulo
 	}
 }
 

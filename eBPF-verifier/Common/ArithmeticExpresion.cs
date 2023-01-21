@@ -28,6 +28,14 @@ namespace eBPF_verifier
             {
                 case ArithmeticOperation.Add:
                     return IntervalOperation.Add;
+                case ArithmeticOperation.Subtract:
+                    return IntervalOperation.Subtract;
+                case ArithmeticOperation.Multiply:
+                    return IntervalOperation.Multiply;
+                case ArithmeticOperation.Divide:
+                    return IntervalOperation.Divide;
+                case ArithmeticOperation.Modulo:
+                    return IntervalOperation.Modulo;
                 default:
                     return IntervalOperation.Subtract;
             }
@@ -41,6 +49,14 @@ namespace eBPF_verifier
                 {
                     case ArithmeticOperation.Add:
                         return "+";
+                    case ArithmeticOperation.Subtract:
+                        return "-";
+                    case ArithmeticOperation.Multiply:
+                        return "*";
+                    case ArithmeticOperation.Divide:
+                        return "/";
+                    case ArithmeticOperation.Modulo:
+                        return "%";
                     default:
                         return "-";
                 }
