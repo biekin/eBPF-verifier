@@ -1,8 +1,8 @@
 ﻿using System;
 namespace eBPF_verifier
 {
-	public class EdgeExpression
-	{
+	public class EdgeExpression : IIntervalEvaluable
+    {
 		public IProgramVariable ProgramVariable { get; private set; }
 		public IIntervalEvaluable IntervalEvaluableExpression { get; private set; }
 
