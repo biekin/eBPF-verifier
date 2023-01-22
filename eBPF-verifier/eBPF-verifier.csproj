@@ -15,6 +15,7 @@
     <None Remove="Interpreter\" />
     <None Remove="Exceptions\" />
     <None Remove="Interfaces\" />
+    <None Remove="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Examples\" />
@@ -23,5 +24,6 @@
     <Folder Include="Interpreter\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
 </Project>

@@ -81,7 +81,80 @@ enum InstructionType {
 }
 
 class EBPFInstruction {
-  public static Dictionary<string, InstructionType> instructionsRev = new Dictionary<string, InstructionType>() {
+  public InstructionType instruction;
+  public int src;
+  public int dst;
+  public int offset;
+  public int immediate;
+
+  public EBPFInstruction(InstructionType instruction, int src, int dst, int offset, int immediate)
+  {
+    this.instruction = instruction;
+    this.src = src;
+    this.dst = dst;
+    this.offset = offset;
+    this.immediate = immediate;
+  }
+
+  public string toString() {
+    return instruction + " " + src + " " + dst + " " + offset + " " + immediate;
+  }
+}
+
+class ParserAsm {
+    public static Dictionary<string, InstructionType> instructionsRev = new Dictionary<string, InstructionType>() {
+                {"add1" , InstructionType.ADD_1},
+                {"add2" , InstructionType.ADD_2},
+                {"sub1" , InstructionType.SUB_1},
+                {"sub2" , InstructionType.SUB_2},
+                {"mul1" , InstructionType.MUL_1},
+                {"mul2" , InstructionType.MUL_2},
+                {"div1" , InstructionType.DIV_1},
+                {"div2" , InstructionType.DIV_2},
+                {"neg" , InstructionType.NEG},
+                {"mod1" , InstructionType.MOD_1},
+                {"mod2" , InstructionType.MOD_2},
+                {"mov1" , InstructionType.MOV_1},
+                {"mov2" , InstructionType.MOV_2},
+                {"jmp" , InstructionType.JMP},
+                {"jgt1" , InstructionType.JMP_GT_1},
+                {"jgt2" , InstructionType.JMP_GT_2},
+                {"jge1" , InstructionType.JMP_GE_1},
+                {"jge2" , InstructionType.JMP_GE_2},
+                {"jlt1" , InstructionType.JMP_LT_1},
+                {"jlt2" , InstructionType.JMP_LT_2},
+                {"jle1" , InstructionType.JMP_LE_1},
+                {"jle2" , InstructionType.JMP_LE_2},
+                {"exit" , InstructionType.EXIT}
+  };
+
+  private static EBPFInstruction buildInstruction(string line)
+   {
+      var parts = line.Split(' ');
+      InstructionType instruction = instructionsRev[parts[0]];
+      int dst = int.Parse(parts[1]);
+      int src = int.Parse(parts[2]);
+      int offset = int.Parse(parts[3]);
+      int immediate = int.Parse(parts[4]);
+      return new EBPFInstruction(instruction, dst, src, offset, immediate);
+   }
+
+  public static List<EBPFInstruction> parse(string path) {
+    List<EBPFInstruction> instructions = new List<EBPFInstruction>();
+    using (StreamReader sr = new StreamReader(path))
+    {
+      string line;
+      while ((line = sr.ReadLine()) != null)
+      {
+        instructions.Add(buildInstruction(line));
+      }
+    }
+    return instructions;
+  }
+}
+
+class ParserBin {
+    public static Dictionary<string, InstructionType> instructionsRev = new Dictionary<string, InstructionType>() {
                 {"0f" , InstructionType.ADD_1},
                 {"07" , InstructionType.ADD_2},
                 {"17" , InstructionType.SUB_1},
@@ -157,31 +230,22 @@ class EBPFInstruction {
                 {"dd" , InstructionType.JMP_SLE_2},
                 {"85" , InstructionType.CALL},
                 {"95" , InstructionType.EXIT}
-    };
-  public InstructionType instruction;
-  public int src;
-  public int dst;
-  public int offset;
-  public int immediate;
-  public EBPFInstruction(string line)
+  };
+
+  private static EBPFInstruction buildInstruction(string line)
    {
-      instruction = instructionsRev[line.Substring(0, 2)];
+      InstructionType instruction = instructionsRev[line.Substring(0, 2)];
       string dstS = line.Substring(2, 1);
       string srcS = line.Substring(3, 1);
       string offsetS = line.Substring(4,4);
       string immediateS = line.Substring(8, 8);
-      dst = int.Parse(dstS, System.Globalization.NumberStyles.HexNumber);
-      src = int.Parse(srcS, System.Globalization.NumberStyles.HexNumber);
-      offset = int.Parse(offsetS, System.Globalization.NumberStyles.HexNumber);
-      immediate = int.Parse(immediateS, System.Globalization.NumberStyles.HexNumber);
+      int dst = int.Parse(dstS, System.Globalization.NumberStyles.HexNumber);
+      int src = int.Parse(srcS, System.Globalization.NumberStyles.HexNumber);
+      int offset = int.Parse(offsetS, System.Globalization.NumberStyles.HexNumber);
+      int immediate = int.Parse(immediateS, System.Globalization.NumberStyles.HexNumber);
+      return new EBPFInstruction(instruction, dst, src, offset, immediate);
    }
 
-  public string toString() {
-    return instruction + " " + src + " " + dst + " " + offset + " " + immediate;
-  }
-}
-
-class Parser {
   public static List<EBPFInstruction> parse(string path) {
     List<EBPFInstruction> instructions = new List<EBPFInstruction>();
     using (StreamReader sr = new StreamReader(path))
@@ -189,7 +253,7 @@ class Parser {
       string line;
       while ((line = sr.ReadLine()) != null)
       {
-        instructions.Add(new EBPFInstruction(line));
+        instructions.Add(buildInstruction(line));
       }
     }
     return instructions;
@@ -199,7 +263,8 @@ class Parser {
 class CFGBuilder {
   private static void processInstruction(Register[] registers, ProgramPoint[] points, CFG cfg, int i, EBPFInstruction instruction) {
     AssignmentEdge e = null;
-    BranchEdge b = null;
+    BranchEdge b1 = null;
+    BranchEdge b2 = null;
     switch (instruction.instruction) {
       case InstructionType.ADD_2:
         e = new AssignmentEdge(points[i-1], points[i], registers[instruction.dst], new ArithmeticExpresion(registers[instruction.dst], registers[instruction.src], ArithmeticOperation.Add));
@@ -226,16 +291,20 @@ class CFGBuilder {
         e = new AssignmentEdge(points[i-1], points[instruction.offset], registers[0], new ArithmeticExpresion(new Literal(0), registers[0], ArithmeticOperation.Add));
         break;
       case InstructionType.JMP_GE_1:
-        b = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], ">=", new Literal(instruction.immediate)));
+        b1 = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], ">=", new Literal(instruction.immediate)));
+        b2 = new BranchEdge(points[i-1], points[i], new Condition(registers[instruction.dst], "<", new Literal(instruction.immediate)));
         break;
       case InstructionType.JMP_GT_1:
-        b = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], ">", new Literal(instruction.immediate)));
+        b1 = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], ">", new Literal(instruction.immediate)));
+        b2 = new BranchEdge(points[i-1], points[i], new Condition(registers[instruction.dst], "<=", new Literal(instruction.immediate)));
         break;
       case InstructionType.JMP_LE_1:
-        b = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], "<=", new Literal(instruction.immediate)));
+        b1 = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], "<=", new Literal(instruction.immediate)));
+        b2 = new BranchEdge(points[i-1], points[i], new Condition(registers[instruction.dst], ">", new Literal(instruction.immediate)));
         break;
       case InstructionType.JMP_LT_1:
-        b = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], "<", new Literal(instruction.immediate)));
+        b1 = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], "<", new Literal(instruction.immediate)));
+        b2 = new BranchEdge(points[i-1], points[i], new Condition(registers[instruction.dst], ">=", new Literal(instruction.immediate)));
         break;
       default: 
         throw new Exception("Not implemented");
@@ -243,30 +312,33 @@ class CFGBuilder {
     if (e != null) {
       cfg.AddEdge(e);
     }
-    if (b != null) {
-      cfg.AddEdge(b);
+    if (b1 != null && b2 != null) {
+      cfg.AddEdge(b1);
+      cfg.AddEdge(b2);
     }
   }
 
   public static CFG build(List<EBPFInstruction> instructions) {
     CFG cfg = new CFG();
-    Register[] registers = Enumerable.Range(1, 10).ToList().Select(i => new Register(i.ToString())).ToArray();
-    ProgramPoint[] points = Enumerable.Range(0, instructions.Count).ToList().Select(i => new ProgramPoint(i.ToString())).ToArray();
+    Register[] registers = Enumerable.Range(0, 10).ToList().Select(i => new Register("r"+i.ToString())).ToArray();
+    ProgramPoint[] points = Enumerable.Range(0, instructions.Count+1).ToList().Select(i => new ProgramPoint(i.ToString())).ToArray();
     for (int i = 0; i < instructions.Count; i++) {
       cfg.AddNode(points[i]);
     }
-    for (int i = 1; i < instructions.Count; i++) {
-      processInstruction(registers, points, cfg, i, instructions[i]);
+    for (int i = 0; i < instructions.Count; i++) {
+      processInstruction(registers, points, cfg, i+1, instructions[i]);
     }
     return cfg;
   }
 }
 
-// class Programm
-// {
-//     public static void Main(string[] args)
-//     {
-//       List<EBPFInstruction> inst = Parser.parse("./Examples/Example1");
-//       CFG cfg = CFGBuilder.build(inst);
-//     }
-// }
+class Programm
+{
+    public static void Main(string[] args)
+    {
+      List<EBPFInstruction> inst = ParserAsm.parse("./Parser/Examples/Example1A");
+      inst.ForEach(i => Console.WriteLine(i.instruction + " " + i.dst + " " + i.src + " " + i.immediate + " " + i.offset));
+      CFG cfg = CFGBuilder.build(inst);
+      Console.WriteLine(cfg.ToString());
+    }
+}
