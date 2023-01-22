@@ -331,14 +331,3 @@ class CFGBuilder {
     return cfg;
   }
 }
-
-class Programm
-{
-    public static void Main(string[] args)
-    {
-      List<EBPFInstruction> inst = ParserAsm.parse("./Parser/Examples/Example1A");
-      inst.ForEach(i => Console.WriteLine(i.instruction + " " + i.dst + " " + i.src + " " + i.immediate + " " + i.offset));
-      CFG cfg = CFGBuilder.build(inst);
-      Console.WriteLine(cfg.ToString());
-    }
-}
