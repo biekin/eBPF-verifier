@@ -1,1 +1,1 @@
-# eBPF-verifier
+# The eBPF security verifier
