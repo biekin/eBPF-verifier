@@ -235,8 +235,8 @@ class ParserBin {
   private static EBPFInstruction buildInstruction(string line)
    {
       InstructionType instruction = instructionsRev[line.Substring(0, 2)];
-      string dstS = line.Substring(2, 1);
-      string srcS = line.Substring(3, 1);
+      string dstS = line.Substring(3, 1);
+      string srcS = line.Substring(2, 1);
       string offsetS = line.Substring(4,4);
       string immediateS = line.Substring(8, 8);
       int dst = int.Parse(dstS, System.Globalization.NumberStyles.HexNumber);
@@ -261,7 +261,7 @@ class ParserBin {
 }
 
 class CFGBuilder {
-  private static void processInstruction(Register[] registers, ProgramPoint[] points, CFG cfg, int i, EBPFInstruction instruction) {
+  private static void processInstruction(Register[] registers, ProgramPoint[] points, CFG cfg, int i, EBPFInstruction instruction, ProgramPoint exitPoint) {
     AssignmentEdge e = null;
     BranchEdge b1 = null;
     BranchEdge b2 = null;
@@ -306,6 +306,9 @@ class CFGBuilder {
         b1 = new BranchEdge(points[i-1], points[instruction.offset], new Condition(registers[instruction.dst], "<", new Literal(instruction.immediate)));
         b2 = new BranchEdge(points[i-1], points[i], new Condition(registers[instruction.dst], ">=", new Literal(instruction.immediate)));
         break;
+      case InstructionType.EXIT:
+        e = new AssignmentEdge(points[i-1], exitPoint, registers[0], new ArithmeticExpresion(new Literal(0), registers[0], ArithmeticOperation.Add));
+        break;
       default: 
         throw new Exception("Not implemented");
     }
@@ -322,11 +325,13 @@ class CFGBuilder {
     CFG cfg = new CFG();
     Register[] registers = Enumerable.Range(0, 10).ToList().Select(i => new Register("r"+i.ToString())).ToArray();
     ProgramPoint[] points = Enumerable.Range(0, instructions.Count+1).ToList().Select(i => new ProgramPoint(i.ToString())).ToArray();
+    ProgramPoint exitPoint = new ProgramPoint("exit");
     for (int i = 0; i < instructions.Count; i++) {
       cfg.AddNode(points[i]);
     }
+    cfg.AddNode(exitPoint);
     for (int i = 0; i < instructions.Count; i++) {
-      processInstruction(registers, points, cfg, i+1, instructions[i]);
+      processInstruction(registers, points, cfg, i+1, instructions[i], exitPoint);
     }
     return cfg;
   }
