@@ -89,7 +89,7 @@ namespace eBPF_verifier
                                     var oldInterval = oldProgramPoint.VariablesIntervals[programVariable];
                                     var newInterval = new Interval(oldInterval.From, int.MaxValue);
                                     var newAbstractState = new AbstractState(oldProgramPoint);
-                                    newAbstractState.Update(programVariable, newInterval);
+                                    newAbstractState.UpdateVariableInterval(programVariable, newInterval);
                                     newSolution.AddOrUpdateProgramPoint(programPoint, newAbstractState);
                                     var eq = analyzer.Equations.FirstOrDefault(e => e.ProgramPoint.Label == programPoint);
                                     eq.ProgramPoint.AbstractState = new AbstractState(newAbstractState);
@@ -100,7 +100,7 @@ namespace eBPF_verifier
                                     var oldInterval = oldProgramPoint.VariablesIntervals[programVariable];
                                     var newInterval = new Interval(int.MinValue, oldInterval.To);
                                     var newAbstractState = new AbstractState(oldProgramPoint);
-                                    newAbstractState.Update(programVariable, newInterval);
+                                    newAbstractState.UpdateVariableInterval(programVariable, newInterval);
                                     newSolution.AddOrUpdateProgramPoint(programPoint, newAbstractState);
                                     var eq = analyzer.Equations.FirstOrDefault(e => e.ProgramPoint.Label == programPoint);
                                     eq.ProgramPoint.AbstractState = new AbstractState(newAbstractState);

@@ -20,7 +20,7 @@ namespace eBPF_verifier
 				var variable = arg.EdgeExpression.ProgramVariable;
 				var abstractState = new AbstractState(arg.ProgramPointFrom.AbstractState);
 				var interval = arg.EdgeExpression.IntervalEvaluableExpression.GetInterval(abstractState);
-				abstractState.Update(variable, interval);
+				abstractState.UpdateVariableInterval(variable, interval);
 				argStates.Add(abstractState);
 			}
 			var newState = new AbstractState(ProgramPoint.AbstractState);

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Text;
+using eBPF_verifier.Common;
+
 namespace eBPF_verifier
 {
 	public class AbstractState
 	{
 		public Dictionary<IProgramVariable, Interval> VariablesIntervals = new Dictionary<IProgramVariable, Interval>();
+
+		public Dictionary<IProgramVariable, TristateNumber> VariablesTristates = new Dictionary<IProgramVariable, TristateNumber>();
 
 		public AbstractState() { }
 
@@ -38,6 +42,11 @@ namespace eBPF_verifier
 			return null;
 		}
 
+		public TristateNumber GetTristateNumberOfRegister(IProgramVariable r)
+		{
+			return VariablesTristates[r];
+		}
+
         public override string ToString()
         {
 			var sb = new StringBuilder();
@@ -48,7 +57,7 @@ namespace eBPF_verifier
 			return sb.ToString();
         }
 
-		public void Update(IProgramVariable variable, Interval interval)
+		public void UpdateVariableInterval(IProgramVariable variable, Interval interval)
 		{
 			if (VariablesIntervals.ContainsKey(variable))
 			{
