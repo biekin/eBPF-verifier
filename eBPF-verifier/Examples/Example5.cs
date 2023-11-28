@@ -13,7 +13,7 @@ namespace eBPF_verifier
 
 		public void Execute()
 		{
-            List<EBPFInstruction> inst = ParserAsm.parse("./Examples/files/Example1A");
+            List<EBPFInstruction> inst = ParserAsm.parse("../../../Examples/files/Example1A");
             inst.ForEach(i => Console.WriteLine(i.instruction + " " + i.dst + " " + i.src + " " + i.immediate + " " + i.offset));
             CFG cfg = CFGBuilder.build(inst);
             // Console.WriteLine(cfg.ToString());

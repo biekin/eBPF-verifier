@@ -4,12 +4,12 @@ namespace eBPF_verifier
 	public class Example1
 	{
         // EXAMPLE 1
-        //    x := 100
+        // x := 100
         //    while x > 0 {
         //        x := x-1
         //    }
 
-        public Example1() { }
+    public Example1() { }
 
 		public void Execute()
 		{
@@ -38,8 +38,8 @@ namespace eBPF_verifier
 
             Console.WriteLine(ex1);
 
-            var analyzer = new Analyzer(ex1, new BasicIterator());
-            //var analyzer = new Analyzer(ex1, new WideningIterator(5));
+            //var analyzer = new Analyzer(ex1, new BasicIterator());
+            var analyzer = new Analyzer(ex1, new WideningIterator(5));
             analyzer.GenerateEquations();
             analyzer.PrintEquations();
             analyzer.PrintCurrentStates();

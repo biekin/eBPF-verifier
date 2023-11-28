@@ -4,14 +4,14 @@ namespace eBPF_verifier
 	public class Example2
 	{
         //EXAMPLE 2
-        //	x := 3
+        //  x := 3
         //	y := 0
         //	while (x>0) {
         //		y := y + 1
         //		x := x - 1 
         //	}
 
-        public Example2() { }
+    public Example2() { }
 
         public void Execute()
         {
