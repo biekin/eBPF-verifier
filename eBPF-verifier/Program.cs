@@ -1,4 +1,5 @@
 ﻿using eBPF_verifier;
+using eBPF_verifier.Examples.tristates;
 
 public class Program
 {
@@ -21,6 +22,15 @@ public class Program
 
         //var ex6 = new Example6();
         //ex6.Execute();
+
+        var ex7 = new Example7();
+        ex7.Execute();
+
+        //var ex8 = new Example8();
+        //ex8.Execute();
+
+        //var ex9 = new Example9();
+        //ex9.Execute();
     }
 }
 

@@ -16,6 +16,8 @@
     <None Remove="Exceptions\" />
     <None Remove="Interfaces\" />
     <None Remove="Enums\" />
+    <None Remove="Examples\intervals\" />
+    <None Remove="Examples\tristates\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Examples\" />
@@ -25,5 +27,7 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Enums\" />
+    <Folder Include="Examples\intervals\" />
+    <Folder Include="Examples\tristates\" />
   </ItemGroup>
 </Project>
