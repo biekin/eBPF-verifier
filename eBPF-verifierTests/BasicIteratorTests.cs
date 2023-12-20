@@ -36,13 +36,13 @@ public class BasicIteratorTests
 
         var expectedSolution = new Solution();
         var pp0ExpectedAS = new AbstractState();
-        pp0ExpectedAS.Add(x, null);
+        pp0ExpectedAS.AddVariableTristate(x, null);
         var pp1ExpectedAS = new AbstractState();
-        pp1ExpectedAS.Add(x, new Interval(0, 100));
+        pp1ExpectedAS.AddVariableInterval(x, new Interval(0, 100));
         var pp2ExpectedAS = new AbstractState();
-        pp2ExpectedAS.Add(x, new Interval(1, 100));
+        pp2ExpectedAS.AddVariableInterval(x, new Interval(1, 100));
         var pp3ExpectedAS = new AbstractState();
-        pp3ExpectedAS.Add(x, new Interval(0, 0));
+        pp3ExpectedAS.AddVariableInterval(x, new Interval(0, 0));
         expectedSolution.AddOrUpdateProgramPoint("0", pp0ExpectedAS);
         expectedSolution.AddOrUpdateProgramPoint("1", pp1ExpectedAS);
         expectedSolution.AddOrUpdateProgramPoint("2", pp2ExpectedAS);
@@ -140,26 +140,26 @@ public class BasicIteratorTests
 
         var expectedSolution = new Solution();
         var pp0ExpectedAS = new AbstractState();
-        pp0ExpectedAS.Add(x, null);
-        pp0ExpectedAS.Add(y, null);
+        pp0ExpectedAS.AddVariableTristate(x, null);
+        pp0ExpectedAS.AddVariableTristate(y, null);
         var pp1ExpectedAS = new AbstractState();
-        pp1ExpectedAS.Add(x, new Interval(3, 3));
-        pp1ExpectedAS.Add(y, null);
+        pp1ExpectedAS.AddVariableInterval(x, new Interval(3, 3));
+        pp1ExpectedAS.AddVariableTristate(y, null);
         var pp2ExpectedAS = new AbstractState();
-        pp2ExpectedAS.Add(x, new Interval(3, 3));
-        pp2ExpectedAS.Add(y, null);
+        pp2ExpectedAS.AddVariableInterval(x, new Interval(3, 3));
+        pp2ExpectedAS.AddVariableTristate(y, null);
         var pp3ExpectedAS = new AbstractState();
-        pp3ExpectedAS.Add(x, new Interval(3, 3));
-        pp3ExpectedAS.Add(y, new Interval(2, 2));
+        pp3ExpectedAS.AddVariableInterval(x, new Interval(3, 3));
+        pp3ExpectedAS.AddVariableInterval(y, new Interval(2, 2));
         var pp4ExpectedAS = new AbstractState();
-        pp4ExpectedAS.Add(x, null);
-        pp4ExpectedAS.Add(y, null);
+        pp4ExpectedAS.AddVariableTristate(x, null);
+        pp4ExpectedAS.AddVariableTristate(y, null);
         var pp5ExpectedAS = new AbstractState();
-        pp5ExpectedAS.Add(x, null);
-        pp5ExpectedAS.Add(y, new Interval(-2, -2));
+        pp5ExpectedAS.AddVariableTristate(x, null);
+        pp5ExpectedAS.AddVariableInterval(y, new Interval(-2, -2));
         var pp6ExpectedAS = new AbstractState();
-        pp6ExpectedAS.Add(x, new Interval(3, 3));
-        pp6ExpectedAS.Add(y, new Interval(-2, 2));
+        pp6ExpectedAS.AddVariableInterval(x, new Interval(3, 3));
+        pp6ExpectedAS.AddVariableInterval(y, new Interval(-2, 2));
 
         expectedSolution.AddOrUpdateProgramPoint("0", pp0ExpectedAS);
         expectedSolution.AddOrUpdateProgramPoint("1", pp1ExpectedAS);

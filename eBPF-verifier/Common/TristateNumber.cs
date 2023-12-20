@@ -6,15 +6,36 @@ using eBPF_verifier.Interfaces;
 
 namespace eBPF_verifier.Common
 {
-    public struct TristateNumber : ITristateNumberEvaluable
+    public class TristateNumber : ITristateNumberEvaluable
     {
         private Tristate[] RegisterState = new Tristate[64];
 
-        public TristateNumber() { }
+        public TristateNumber()
+        {
+            for (int i = 0; i < 64; i++) RegisterState[i] = Tristate.Unknown;
+        }
 
         public TristateNumber(Tristate s)
         {
             for (int i = 0; i < 64; i++) RegisterState[i] = s;
+        }
+
+        public bool isEqualTo(TristateNumber a)
+        {
+            if (this == null)
+            {
+                return a == null ? true : false;
+            }
+            bool equal = true;
+            for (int i = 0; i < 64; i++)
+            {
+                if (this.GetBitState(i) != a.GetBitState(i))
+                {
+                    equal = false;
+                    break;
+                }
+            }
+            return equal;
         }
 
         public Tristate GetBitState(int n)
@@ -32,6 +53,65 @@ namespace eBPF_verifier.Common
         public TristateNumber GetTristateNumber(AbstractState abstractState)
         {
 			return this;
+        }
+
+        public static TristateNumber GreatestLowerBound(TristateNumber a, TristateNumber b)
+        {
+            if (a == null) return null;
+            if (b == null) return null;
+            TristateNumber result = new TristateNumber();
+            Tristate aBit, bBit;
+            for (int i = 0; i < 64; i++)
+            {
+                aBit = a.GetBitState(i);
+                bBit = b.GetBitState(i);
+                if (aBit == Tristate.Unknown)
+                {
+                    result.SetBitState(i, bBit);
+                }
+                else if (bBit == Tristate.Unknown)
+                {
+                    result.SetBitState(i, aBit);
+                }
+                else if (aBit == bBit)
+                {
+                    result.SetBitState(i, aBit);
+                }
+                else
+                {
+                    result = null;
+                    break;
+                }
+
+            }
+            return result;
+        }
+
+        public static TristateNumber LeastUpperBound(TristateNumber a, TristateNumber b)
+        {
+            if (a == null) return null;
+            if (b == null) return null;
+            TristateNumber result = new TristateNumber();
+            Tristate aBit, bBit;
+            for (int i = 0; i < 64; i++)
+            {
+                aBit = a.GetBitState(i);
+                bBit = b.GetBitState(i);
+                if (aBit == Tristate.Unknown || bBit == Tristate.Unknown)
+                {
+                    result.SetBitState(i, Tristate.Unknown);
+                }
+                else if (aBit == bBit)
+                {
+                    result.SetBitState(i, aBit);
+                }
+                else
+                {
+                    result.SetBitState(i, Tristate.Unknown);
+                }
+
+            }
+            return result;
         }
 
         public override string ToString()

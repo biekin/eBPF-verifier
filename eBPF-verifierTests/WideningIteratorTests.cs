@@ -45,23 +45,23 @@ public class WideningIteratorTests
 
         var expectedSolution = new Solution();
         var pp0ExpectedAS = new AbstractState();
-        pp0ExpectedAS.Add(x, null);
-        pp0ExpectedAS.Add(y, null);
+        pp0ExpectedAS.AddVariableTristate(x, null);
+        pp0ExpectedAS.AddVariableTristate(y, null);
         var pp1ExpectedAS = new AbstractState();
-        pp1ExpectedAS.Add(x, new Interval(3, 3));
-        pp1ExpectedAS.Add(y, null);
+        pp1ExpectedAS.AddVariableInterval(x, new Interval(3, 3));
+        pp1ExpectedAS.AddVariableTristate(y, null);
         var pp2ExpectedAS = new AbstractState();
-        pp2ExpectedAS.Add(x, new Interval(0, 3));
-        pp2ExpectedAS.Add(y, new Interval(0, int.MaxValue));
+        pp2ExpectedAS.AddVariableInterval(x, new Interval(0, 3));
+        pp2ExpectedAS.AddVariableInterval(y, new Interval(0, int.MaxValue));
         var pp3ExpectedAS = new AbstractState();
-        pp3ExpectedAS.Add(x, new Interval(1, 3));
-        pp3ExpectedAS.Add(y, new Interval(0, int.MaxValue));
+        pp3ExpectedAS.AddVariableInterval(x, new Interval(1, 3));
+        pp3ExpectedAS.AddVariableInterval(y, new Interval(0, int.MaxValue));
         var pp4ExpectedAS = new AbstractState();
-        pp4ExpectedAS.Add(x, new Interval(1, 3));
-        pp4ExpectedAS.Add(y, new Interval(1, int.MaxValue));
+        pp4ExpectedAS.AddVariableInterval(x, new Interval(1, 3));
+        pp4ExpectedAS.AddVariableInterval(y, new Interval(1, int.MaxValue));
         var pp5ExpectedAS = new AbstractState();
-        pp5ExpectedAS.Add(x, new Interval(0, 0));
-        pp5ExpectedAS.Add(y, new Interval(0, int.MaxValue));
+        pp5ExpectedAS.AddVariableInterval(x, new Interval(0, 0));
+        pp5ExpectedAS.AddVariableInterval(y, new Interval(0, int.MaxValue));
 
         expectedSolution.AddOrUpdateProgramPoint("0", pp0ExpectedAS);
         expectedSolution.AddOrUpdateProgramPoint("1", pp1ExpectedAS);

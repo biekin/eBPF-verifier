@@ -28,11 +28,12 @@ namespace eBPF_verifier
 		{
 			foreach(var v in variables)
 			{
-				Add(v);
+				AddVariableInterval(v);
+				AddVariableTristate(v);
 			}
 		}
 
-		public void Add(IProgramVariable v, Interval interval = null)
+		public void AddVariableInterval(IProgramVariable v, Interval interval = null)
 		{
 			if (!VariablesIntervals.ContainsKey(v))
 			{
@@ -40,7 +41,7 @@ namespace eBPF_verifier
 			}
 		}
 
-        public void Add(IProgramVariable v, TristateNumber tristate)
+        public void AddVariableTristate(IProgramVariable v, TristateNumber tristate = null)
         {
             if (!VariablesTristates.ContainsKey(v))
             {
@@ -79,7 +80,7 @@ namespace eBPF_verifier
 			{
 				VariablesIntervals[variable] = interval;
 			}
-			else Add(variable, interval);
+			else AddVariableInterval(variable, interval);
 		}
 
 		public static AbstractState LeastUpperBound(AbstractState a, AbstractState b)
@@ -88,16 +89,21 @@ namespace eBPF_verifier
 			foreach(var v in a.VariablesIntervals.Keys)
 			{
 				var interval = Interval.LeastUpperBound(a.VariablesIntervals[v], b.VariablesIntervals[v]);
-				newState.Add(v, interval);
+				newState.AddVariableInterval(v, interval);
 			}
-			return newState;
+            foreach (var v in a.VariablesTristates.Keys)
+            {
+                var tristate = TristateNumber.LeastUpperBound(a.VariablesTristates[v], b.VariablesTristates[v]);
+                newState.AddVariableTristate(v, tristate);
+            }
+            return newState;
 		}
 
 		public void ExtendIntervalOfVariable(IProgramVariable variable, Interval interval)
 		{
 			if (!VariablesIntervals.ContainsKey(variable))
 			{
-				Add(variable, interval);
+				AddVariableInterval(variable, interval);
 			} else
 			{
 				VariablesIntervals[variable] = Interval.LeastUpperBound(VariablesIntervals[variable], interval);

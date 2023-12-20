@@ -60,7 +60,22 @@ namespace eBPF_verifier
 					else if (i != null) isEqual = false;
                     
 				}
-			}
+                foreach (var variableTristate in FixpointState[programPoint].VariablesTristates)
+                {
+                    var v = variableTristate.Key;
+                    var i = variableTristate.Value;
+                    var anotherVariableTristate = anotherAbstractState.GetTristateNumberOfRegister(v);
+                    if (anotherVariableTristate != null)
+                    {
+                        if (!anotherVariableTristate.isEqualTo(i))
+                        {
+                            isEqual = false;
+                        }
+                    }
+                    else if (i != null) isEqual = false;
+
+                }
+            }
 			return isEqual;
 		}
     }
