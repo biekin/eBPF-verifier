@@ -1,10 +1,14 @@
 ﻿using System;
+using eBPF_verifier.Common;
+using eBPF_verifier.Interfaces;
+
 namespace eBPF_verifier
 {
-	public class EdgeExpression : IIntervalEvaluable
+	public class EdgeExpression : IIntervalEvaluable, ITristateNumberEvaluable
     {
 		public IProgramVariable ProgramVariable { get; private set; }
 		public IIntervalEvaluable IntervalEvaluableExpression { get; private set; }
+		public ITristateNumberEvaluable TristateNumberEvaluableExpression { get; private set; }
 
 		public EdgeExpression(IProgramVariable programVariable, IIntervalEvaluable intervalEvaluable)
 		{
@@ -15,6 +19,11 @@ namespace eBPF_verifier
 		public Interval GetInterval(AbstractState abstractState)
 		{
 			return IntervalEvaluableExpression.GetInterval(abstractState);
+		}
+
+		public TristateNumber GetTristateNumber(AbstractState abstractState)
+		{
+			return TristateNumberEvaluableExpression.GetTristateNumber(abstractState);
 		}
 
         public override string ToString()

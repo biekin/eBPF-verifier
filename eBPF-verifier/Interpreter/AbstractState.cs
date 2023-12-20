@@ -18,7 +18,11 @@ namespace eBPF_verifier
 			{
 				VariablesIntervals.Add(v.Key, v.Value);
 			}
-		}
+            foreach (var v in another.VariablesTristates)
+            {
+                VariablesTristates.Add(v.Key, v.Value);
+            }
+        }
 
 		public AbstractState(List<IProgramVariable> variables)
 		{
@@ -36,7 +40,15 @@ namespace eBPF_verifier
 			}
 		}
 
-		public Interval GetIntervalOfRegister(IProgramVariable r)
+        public void Add(IProgramVariable v, TristateNumber tristate)
+        {
+            if (!VariablesTristates.ContainsKey(v))
+            {
+                VariablesTristates.Add(v, tristate);
+            }
+        }
+
+        public Interval GetIntervalOfRegister(IProgramVariable r)
 		{
 			if (VariablesIntervals.ContainsKey(r)) return VariablesIntervals[r];
 			return null;
@@ -53,6 +65,10 @@ namespace eBPF_verifier
 			foreach(var varInterval in VariablesIntervals)
 			{
 				sb.Append($"{varInterval.Key} -> {varInterval.Value}\n");
+			}
+			foreach(var varTristate in VariablesTristates)
+			{
+				sb.Append($"{varTristate.Key} -> {varTristate.Value}\n");
 			}
 			return sb.ToString();
         }

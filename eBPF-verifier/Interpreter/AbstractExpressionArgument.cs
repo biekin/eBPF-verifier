@@ -1,4 +1,6 @@
 ﻿using System;
+using eBPF_verifier.Common;
+
 namespace eBPF_verifier
 {
 	public class AbstractExpressionArgument
@@ -15,6 +17,11 @@ namespace eBPF_verifier
 		public Interval GetInterval()
 		{
 			return EdgeExpression.GetInterval(ProgramPointFrom.AbstractState);
+		}
+
+		public TristateNumber GetTristateNumber()
+		{
+			return EdgeExpression.GetTristateNumber(ProgramPointFrom.AbstractState);
 		}
 
 		public override string ToString()
